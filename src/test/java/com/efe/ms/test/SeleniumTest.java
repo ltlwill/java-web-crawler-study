@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -56,13 +57,37 @@ public class SeleniumTest {
 		System.out.println(driver.getTitle());
 		System.out.println(driver.getPageSource());
 		System.out.println("--------------------------华丽的分割线--------------------------------"); 
+		// 获取当前页面所有的新闻标题
+		printNewsTitle(driver); // 第一页的
+		
+		// 如果有下一页
+		
+		System.out.println("-----------------处理完成------------------");
+		driver.quit();
+	}
+	
+	private void printNewsTitle(WebDriver driver) {
+		WebDriverWait wait = new WebDriverWait(driver, 15);
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#companyNews > tr")));
+		// 获取当前页面所有的新闻标题
 		List<WebElement> trs = driver.findElements(By.cssSelector("#companyNews > tr"));
 		Optional.ofNullable(trs).orElse(Collections.emptyList()).forEach( ele -> {
 			WebElement e = ele.findElement(By.cssSelector("ul > li:first-child > a"));
 			System.out.println(e == null ? "null" : e.getText());
 		});
+		JavascriptExecutor jsExecutor= ((JavascriptExecutor) driver);
+        // 清空列表元素，以便于后面点击下一页按钮时判断ajax请求是否完成
+		jsExecutor.executeScript("document.querySelector('#companyNews').innerHTML = ''");
+		// 下一页按钮
+		WebElement nextBtn = driver.findElement(By.cssSelector(".text-center > a.btn_next"));
+		String classText = nextBtn.getAttribute("class");
+		// 如果没有一页则不处理
+		if(classText == null || "".equals(classText.trim()) || classText.contains("hide")) {
+			return;
+		}
 		
-		driver.quit();
+		nextBtn.click(); // 点击下一页按钮
+		printNewsTitle(driver); 
 	}
 
 }
