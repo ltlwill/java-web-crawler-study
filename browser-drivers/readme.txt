@@ -1,6 +1,6 @@
-chromeÇı¶¯£ºchromedriver.exe   win-32-v76.0.3809.126)
-firefoxÇı¶¯£ºgeckodriver.exe   win-64-v0.26.0
-phantomjsÇı¶¯£º phantomjs.exe  win-v2.1.1 
+chromeé©±åŠ¨       chromedriver.exe   win-32-v76.0.3809.126)
+firefoxé©±åŠ¨      geckodriver.exe    win-64-v0.26.0
+phantomjsé©±åŠ¨    phantomjs.exe      win-v2.1.1 
  
  
  
