@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.GeckoDriverService;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
@@ -20,6 +21,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SeleniumTest {
 	
+	/**
+	 * 使用chrome 浏览器   有界面
+	 */
 	@Test
 	public void chrome() {
 		String driverPath = "E:\\softWareInstall\\webDriver\\chromedriver.exe";
@@ -29,6 +33,23 @@ public class SeleniumTest {
 		doBusiness(driver);
 	}
 	
+	/**
+	 * 使用 chrome 浏览器 无界面 --headless （注：速度很慢）
+	 */
+	@Test
+	public void chromeHeadless() {
+		String driverPath = "E:\\softWareInstall\\webDriver\\chromedriver.exe";
+		System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, driverPath);
+		ChromeOptions opts = new ChromeOptions();
+//		opts.addArguments("--headless");
+		opts.setHeadless(true); 
+		WebDriver driver = new ChromeDriver(opts); // chrome --headless模式（无界面模式）
+		doBusiness(driver);
+	}
+	
+	/**
+	 * 使用firefox 浏览器
+	 */
 	@Test
 	public void firefox() {
 		String driverPath = "E:\\softWareInstall\\webDriver\\geckodriver.exe";
@@ -38,6 +59,9 @@ public class SeleniumTest {
 		doBusiness(driver);
 	}
 	
+	/**
+	 * 使用 phantomjs 无界面
+	 */
 	@Test
 	public void phantomjs() {
 		String chromeDriverPath = "E:\\softWareInstall\\webDriver\\phantomjs.exe";
