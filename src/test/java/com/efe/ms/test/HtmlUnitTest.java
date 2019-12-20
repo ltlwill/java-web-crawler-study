@@ -64,12 +64,13 @@ public class HtmlUnitTest {
 
 //		Element nextBtn = doc.selectFirst(".text-center > a.btn_next");
 //		String classText = nextBtn.className();
-//		// 如果没有一页则不处理
+//		// 如果没有下页则不处理
 //		if(classText == null || "".equals(classText.trim()) || classText.contains("hide")) {
 //			return;
 //		}
 		HtmlAnchor btn = page.getFirstByXPath("//a[@class='btn_next']");
 		String classText = btn == null ? null : btn.getAttribute("class");
+		// 如果没有下页则不处理
 		if (btn == null || classText == null || "".equals(classText.trim()) || classText.contains("hide")) {
 			return;
 		}
