@@ -1,2 +1,2 @@
-# selenium-java-study
-Selenium java操作学习
+# java web crawler study
+java 网络爬虫学习
