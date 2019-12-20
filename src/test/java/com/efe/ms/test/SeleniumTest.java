@@ -111,7 +111,7 @@ public class SeleniumTest {
 		// 下一页按钮
 		WebElement nextBtn = driver.findElement(By.cssSelector(".text-center > a.btn_next"));
 		String classText = nextBtn.getAttribute("class");
-		// 如果没有一页则不处理
+		// 如果没有下一页则不处理
 		if(classText == null || "".equals(classText.trim()) || classText.contains("hide")) {
 			return;
 		}
