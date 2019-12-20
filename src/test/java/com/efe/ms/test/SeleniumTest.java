@@ -19,6 +19,12 @@ import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/**
+ * 使用 Selenium 获取动态网页数据（分页）
+ * 
+ * @author Tianlong Liu
+ * @2019年12月19日 下午5:24:23
+ */
 public class SeleniumTest {
 	
 	/**
@@ -76,7 +82,7 @@ public class SeleniumTest {
 		driver.get("http://hengzhiyi.cn/company_news.html");
 //		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#companyNews > tr")));
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#companyNews tr")));
 		
 		System.out.println(driver.getTitle());
 		System.out.println(driver.getPageSource());
@@ -92,14 +98,14 @@ public class SeleniumTest {
 	
 	private void printNewsTitle(WebDriver driver) {
 		WebDriverWait wait = new WebDriverWait(driver, 15);
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#companyNews > tr")));
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#companyNews tr")));
 		// 获取当前页面所有的新闻标题
-		List<WebElement> trs = driver.findElements(By.cssSelector("#companyNews > tr"));
+		List<WebElement> trs = driver.findElements(By.cssSelector("#companyNews tr"));
 		Optional.ofNullable(trs).orElse(Collections.emptyList()).forEach( ele -> {
 			WebElement e = ele.findElement(By.cssSelector("ul > li:first-child > a"));
 			System.out.println(e == null ? "null" : e.getText());
 		});
-		JavascriptExecutor jsExecutor= ((JavascriptExecutor) driver);
+		JavascriptExecutor jsExecutor = ((JavascriptExecutor) driver);
         // 清空列表元素，以便于后面点击下一页按钮时判断ajax请求是否完成
 		jsExecutor.executeScript("document.querySelector('#companyNews').innerHTML = ''");
 		// 下一页按钮
@@ -109,8 +115,8 @@ public class SeleniumTest {
 		if(classText == null || "".equals(classText.trim()) || classText.contains("hide")) {
 			return;
 		}
-		
 		nextBtn.click(); // 点击下一页按钮
+		System.out.println("-------------请求下一页数据-------------");
 		printNewsTitle(driver); 
 	}
 
