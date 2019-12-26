@@ -76,9 +76,9 @@ public class GiteeCrawler extends BaseCrawler{
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#new_user #user_login")));
 		
 		WebElement nameEle = driver.findElement(By.cssSelector("#new_user #user_login"));
-		nameEle.sendKeys("389261468@qq.com");
+		nameEle.sendKeys("邮箱@qq.com");
 		WebElement pwdEle = driver.findElement(By.cssSelector("#new_user #user_password"));
-		pwdEle.sendKeys("teemo.666");
+		pwdEle.sendKeys("密码");
 		WebElement submitEle = driver.findElement(By.cssSelector("#new_user input[name=\"commit\"]"));
 		submitEle.click();
 	}
