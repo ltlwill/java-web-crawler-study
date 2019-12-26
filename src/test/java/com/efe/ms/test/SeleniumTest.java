@@ -70,8 +70,8 @@ public class SeleniumTest {
 	 */
 	@Test
 	public void phantomjs() {
-		String chromeDriverPath = "E:\\softWareInstall\\webDriver\\phantomjs.exe";
-		System.setProperty(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, chromeDriverPath);
+		String driverPath = "E:\\softWareInstall\\webDriver\\phantomjs.exe";
+		System.setProperty(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, driverPath);
 		
 //		GECKO_DRIVER_EXE_PROPERTY
 		WebDriver driver = new PhantomJSDriver();

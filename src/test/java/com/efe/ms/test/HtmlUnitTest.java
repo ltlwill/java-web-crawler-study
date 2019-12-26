@@ -30,6 +30,7 @@ public class HtmlUnitTest {
 		try {
 			webClient = new WebClient(BrowserVersion.CHROME);
 			webClient.getOptions().setCssEnabled(false); // 无界面，不需要开启CSS
+			webClient.getOptions().setDownloadImages(false); // 不需要加载图片
 			webClient.getOptions().setJavaScriptEnabled(true); // 有ajax请求，需要开启
 			webClient.getOptions().setActiveXNative(false);
 			webClient.getOptions().setThrowExceptionOnScriptError(false); // 当JS执行出错的时候是否抛出异常, 这里选择不需要
