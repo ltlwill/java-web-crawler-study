@@ -28,11 +28,10 @@ public class GiteeCrawler extends BaseCrawler{
 //		WebDriver driver = chromeDriver();  // 成功
 //		WebDriver driver = chromeHeadlessDriver(); // 失败，非常慢
 //		WebDriver driver = firefoxDriver(); // 成功
-		WebDriver driver = phantomjsDriver(); // 1. 登录后不设置Thread.sleep立即获取目标页面会出错，2. 登录后设置Thread.sleep线程暂停一段时间，再获取目标页面，则成功
+		WebDriver driver = phantomjsDriver(); // 成功
 		try {
 			// login 
 			doLogin(driver);
-			Thread.sleep(5000l); // 注：使用phantomjs是，需要线程暂停一下，否则后续获取目标页面会出错，不知道原因
 			// parse page
 			parseTargetPage(driver);
 		}catch (Exception e) {
@@ -72,15 +71,21 @@ public class GiteeCrawler extends BaseCrawler{
 	private void doLogin(WebDriver driver) {
 		String loginUrl = "https://gitee.com/login";
 		driver.get(loginUrl);
+		// 静茹登录页面
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#new_user #user_login")));
 		
+		// 执行登录操作
 		WebElement nameEle = driver.findElement(By.cssSelector("#new_user #user_login"));
-		nameEle.sendKeys("邮箱@qq.com");
+		nameEle.sendKeys("389261468@qq.com");
 		WebElement pwdEle = driver.findElement(By.cssSelector("#new_user #user_password"));
-		pwdEle.sendKeys("密码");
+		pwdEle.sendKeys("teemo.666");
 		WebElement submitEle = driver.findElement(By.cssSelector("#new_user input[name=\"commit\"]"));
 		submitEle.click();
+		
+		// 登录成功，并且跳转到主页
+		wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".header-menu #my-gitee-dropdown")));
 	}
 
 }
