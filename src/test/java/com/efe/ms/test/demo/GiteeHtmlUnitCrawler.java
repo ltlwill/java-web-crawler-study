@@ -66,7 +66,6 @@ public class GiteeHtmlUnitCrawler extends BaseCrawler{
 		HtmlPage page = client.getPage(pageUrl);
 		client.waitForBackgroundJavaScript(1000 * 15);
 		DomNodeList<DomNode> nodes = page.querySelectorAll("#recommend-project__container .items .item");
-		int idx = 0;
 		nodes.forEach(node -> {
 			DomNode title = node.querySelector(".recommend-list .recommend-project__name a");
 			DomNode subTitle = node.querySelector(".recommend-list .recommend-project__describe");
