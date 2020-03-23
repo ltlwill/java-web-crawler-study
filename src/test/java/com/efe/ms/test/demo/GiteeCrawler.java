@@ -71,7 +71,7 @@ public class GiteeCrawler extends BaseCrawler{
 	private void doLogin(WebDriver driver) {
 		String loginUrl = "https://gitee.com/login";
 		driver.get(loginUrl);
-		// 静茹登录页面
+		// 进入登录页面
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#new_user #user_login")));
 		

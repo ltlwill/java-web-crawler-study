@@ -54,9 +54,9 @@ public class GiteeHtmlUnitCrawler extends BaseCrawler{
 //		return ele.click(); // 点击登录
 		
 		HtmlInput name = loginPage.getFirstByXPath("//input[@id='user_login']");
-		name.setValueAttribute("xa@qq.com");
+		name.setValueAttribute("xa@qq.com"); // 用户名
 		HtmlInput pwd = loginPage.getFirstByXPath("//input[@id='user_password']");
-		pwd.setValueAttribute("taxax");
+		pwd.setValueAttribute("taxax"); // 密码
 		HtmlInput btn = loginPage.getFirstByXPath("//input[@name='commit']");
 		btn.click();
 	}
