@@ -57,11 +57,13 @@ public class HtmlUnitTest {
 		Document doc = Jsoup.parse(page.asXml());
 		List<Element> eles = doc.select("#companyNews tr");
 		Optional.ofNullable(eles).orElse(Collections.emptyList()).forEach(ele -> {
-			Element a = ele.selectFirst("ul > li:first-child > a");
+//			Element a = ele.selectFirst("ul > li:first-child > a");
+			Element a = ele.select("ul > li:first-child > a").get(0);
 			System.out.println(a.text());
 		});
 //		page.executeJavaScript("document.querySelector('#companyNews').innerHTML = ''");
-		doc.selectFirst("#companyNews").empty();
+//		doc.selectFirst("#companyNews").empty();
+		doc.select("#companyNews").get(0).empty();
 
 //		Element nextBtn = doc.selectFirst(".text-center > a.btn_next");
 //		String classText = nextBtn.className();

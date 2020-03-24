@@ -62,8 +62,10 @@ public class GiteeCrawler extends BaseCrawler{
 		Document doc = Jsoup.parse(page);
 		Elements els = doc.select("#recommend-project__container .items .item");
 		els.forEach(e -> {
-			Element title = e.selectFirst(".recommend-list .recommend-project__name a"); 
-			Element subTitle = e.selectFirst(".recommend-list .recommend-project__describe");
+//			Element title = e.selectFirst(".recommend-list .recommend-project__name a"); 
+//			Element subTitle = e.selectFirst(".recommend-list .recommend-project__describe");
+			Element title = e.select(".recommend-list .recommend-project__name a").get(0); 
+			Element subTitle = e.select(".recommend-list .recommend-project__describe").get(0);
 			System.out.println(title.text() + " | " + subTitle.text() + " | " + title.attr("href"));
 		});
 	}
@@ -77,9 +79,9 @@ public class GiteeCrawler extends BaseCrawler{
 		
 		// 执行登录操作
 		WebElement nameEle = driver.findElement(By.cssSelector("#new_user #user_login"));
-		nameEle.sendKeys("xx@qq.com");
+		nameEle.sendKeys(LOGIN_USER_NAME);
 		WebElement pwdEle = driver.findElement(By.cssSelector("#new_user #user_password"));
-		pwdEle.sendKeys("txx");
+		pwdEle.sendKeys(LOGIN_USER_PWD);
 		WebElement submitEle = driver.findElement(By.cssSelector("#new_user input[name=\"commit\"]"));
 		submitEle.click();
 		

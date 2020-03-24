@@ -19,6 +19,9 @@ public class BaseCrawler {
 	
 	protected Logger logger = Logger.getLogger(BaseCrawler.class.getName());
 	
+	protected static final String LOGIN_USER_NAME = "389261468@qq.com";
+	protected static final String LOGIN_USER_PWD = "teemo.666";
+	
 	/**
 	 * chrome 浏览器驱动
 	 * @return
