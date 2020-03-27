@@ -9,6 +9,7 @@ import org.jsoup.Jsoup;
 import com.efe.ms.test.ext.HttpClientDownloader;
 
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Site;
@@ -27,11 +28,11 @@ public class MyGithubProcessor implements PageProcessor {
 	public static void main(String[] args) {
 		// 使用默认 scheduler
 //		Spider.create(new MyGithubProcessor()).setDownloader(new HttpClientDownloader())
-//				.addUrl("https://github.com/ltlwill").addPipeline(new MyPipeLine()).thread(1).run();
+//				.addUrl("https://github.com/ltlwill").addPipeline(new MyPipeLine()).thread(3).run();
 		
 		// 使用 redis 的scheduler
 		Spider.create(new MyGithubProcessor()).setDownloader(new HttpClientDownloader()).setScheduler(createRedisScheduler())
-		.addUrl("https://github.com/ltlwill").addPipeline(new MyPipeLine()).thread(1).run();
+		.addUrl("https://github.com/ltlwill").addPipeline(new MyPipeLine()).thread(3).run();
 	}
 
 	@Override
@@ -50,20 +51,24 @@ public class MyGithubProcessor implements PageProcessor {
 		}else { // 主页
 //			page.addTargetRequests(page.getHtml().links().regex("https://github.com/ltlwill/\\w+").all());
 //			page.getHtml().css(".pinned-item-list-item .pinned-item-list-item-content .flex-items-center > a").all();
-			page.getHtml().$(".pinned-item-list-item .pinned-item-list-item-content .flex-items-center > a","href").all().forEach(url -> {
-				page.addTargetRequest("https://github.com" + url);
-			});
+			page.getHtml().$(".pinned-item-list-item .pinned-item-list-item-content .flex-items-center > a","href")
+				.all()
+				.forEach(url -> page.addTargetRequest("https://github.com" + url));
 		}
 		
 	}
 	
+	/**
+	 * 使用redis scheduler时，每一个URL请求一个后会存入redis中，下载不会在此请求此URL，需要将redis中的记录删掉才能再次请求
+	 * @return
+	 */
 	private static Scheduler createRedisScheduler() {
-		GenericObjectPoolConfig conf = new GenericObjectPoolConfig();
+		JedisPoolConfig conf = new JedisPoolConfig();
 		conf.setMaxIdle(5);
 		conf.setMinIdle(1);
 		conf.setTestWhileIdle(true);
 		conf.setTestOnBorrow(true);
-		JedisPool pool = new JedisPool(conf,"192.168.2.6",6379,5000,"redis@1234",1); // 使用db1
+		JedisPool pool = new JedisPool(conf,"192.168.2.6",6379,5000,"redis@1234",5); // 使用db5
 		return new RedisScheduler(pool);
 	}
 
