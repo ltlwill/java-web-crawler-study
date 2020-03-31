@@ -16,8 +16,10 @@ public class HtmlParse {
 	
 	@Test
 	public void extraJSCode() throws Exception{
-		String path = "pages/590449991333.html";
-		String html = ClassPathResourceUtils.getResourceAsString(path,Charset.forName("gbk"));
+//		String path = "pages/590449991333.html";
+		String path = "pages/613286017009.html";
+//		String html = ClassPathResourceUtils.getResourceAsString(path,Charset.forName("gbk"));
+		String html = ClassPathResourceUtils.getResourceAsString(path,Charset.forName("UTF-8"));
 //		System.out.println(html);
 		
 		String dcFlag = "var iDetailConfig =",
